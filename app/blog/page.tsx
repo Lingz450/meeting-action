@@ -113,10 +113,12 @@ export default function BlogPage() {
           <CardContent>
             <div className="flex items-center justify-between">
               <span className="text-sm text-gray-600">{posts[0].readTime}</span>
-              <Button>
-                Read More
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
+              <Link href={`/blog/${posts[0].slug}`}>
+                <Button>
+                  Read More
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </Link>
             </div>
           </CardContent>
         </Card>
@@ -149,10 +151,12 @@ export default function BlogPage() {
               <CardContent>
                 <div className="flex items-center justify-between">
                   <span className="text-sm text-gray-600">{post.readTime}</span>
-                  <Button variant="ghost" size="sm">
-                    Read More
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
+                  <Link href={`/blog/${post.slug}`}>
+                    <Button variant="ghost" size="sm">
+                      Read More
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                  </Link>
                 </div>
               </CardContent>
             </Card>
