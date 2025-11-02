@@ -1,13 +1,13 @@
 import { currentUser } from '@clerk/nextjs/server';
 import { redirect } from 'next/navigation';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { 
-  Settings, Zap, Video, Clock, Users, 
-  Download, ExternalLink, Play
+  Settings, Zap, Video
 } from 'lucide-react';
 import Link from 'next/link';
+import { MeetingsList } from '@/components/meetings-list';
 
 export default async function MeetingsPage() {
   const user = await currentUser();
@@ -108,75 +108,7 @@ export default async function MeetingsPage() {
 
         {/* Meetings List */}
         {meetings.length > 0 ? (
-          <div className="space-y-4">
-            {meetings.map((meeting) => (
-              <Card key={meeting.id} className="hover:shadow-lg transition">
-                <CardContent className="pt-6">
-                  <div className="flex items-start justify-between">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-3 mb-3">
-                        <div className="h-12 w-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                          <Video className="h-6 w-6 text-blue-600" />
-                        </div>
-                        <div>
-                          <h3 className="font-semibold text-lg">{meeting.title}</h3>
-                          <div className="flex items-center gap-4 text-sm text-gray-600 mt-1">
-                            <span className="flex items-center gap-1">
-                              <Clock className="h-4 w-4" />
-                              {new Date(meeting.date).toLocaleDateString('en-US', {
-                                month: 'short',
-                                day: 'numeric',
-                                hour: 'numeric',
-                                minute: '2-digit',
-                              })}
-                            </span>
-                            <span>{meeting.duration} min</span>
-                            <span className="flex items-center gap-1">
-                              <Users className="h-4 w-4" />
-                              {meeting.participants.length} participants
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="flex items-center gap-3 mb-4">
-                        <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
-                          {meeting.actions} actions extracted
-                        </Badge>
-                        <Badge variant="outline">
-                          {meeting.status}
-                        </Badge>
-                        {meeting.hasRecording && (
-                          <Badge variant="secondary">
-                            <Play className="h-3 w-3 mr-1" />
-                            Recording
-                          </Badge>
-                        )}
-                        {meeting.hasTranscript && (
-                          <Badge variant="secondary">Transcript</Badge>
-                        )}
-                      </div>
-
-                      <div className="flex items-center gap-2">
-                        <Button size="sm" variant="outline">
-                          View Details
-                          <ExternalLink className="ml-2 h-4 w-4" />
-                        </Button>
-                        <Button size="sm" variant="outline">
-                          View Actions
-                        </Button>
-                        {meeting.hasTranscript && (
-                          <Button size="sm" variant="outline">
-                            Download Transcript
-                          </Button>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+          <MeetingsList meetings={meetings} />
         ) : (
           <Card className="py-16">
             <CardContent className="text-center">
