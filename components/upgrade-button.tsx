@@ -25,17 +25,23 @@ export function UpgradeButton({ plan, variant = 'default', className, children }
         body: JSON.stringify({ plan }),
       });
 
+      const data = await response.json();
+
       if (!response.ok) {
-        throw new Error('Failed to create checkout session');
+        // Show specific error message if available
+        throw new Error(data.error || 'Failed to create checkout session');
       }
 
-      const { url } = await response.json();
-      
       // Redirect to Stripe Checkout
-      window.location.href = url;
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        throw new Error('No checkout URL returned');
+      }
     } catch (error) {
       console.error('Error creating checkout session:', error);
-      alert('Failed to start checkout. Please try again.');
+      const errorMessage = error instanceof Error ? error.message : 'Failed to start checkout. Please try again.';
+      alert(errorMessage);
       setIsLoading(false);
     }
   };
