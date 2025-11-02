@@ -292,7 +292,7 @@ export default function ContactPage() {
                   </Button>
                 </Link>
                 <Link href="/about">
-                  <Button size="lg" variant="outline" className="text-white border-white hover:bg-white/10">
+                  <Button size="lg" variant="outline" className="text-white border-2 border-white hover:bg-white hover:text-blue-600">
                     Learn More
                   </Button>
                 </Link>
