@@ -17,6 +17,7 @@ export default async function IntegrationsPage() {
   const tempWorkspaceId = 'temp-workspace-id';
   const integrations = {
     zoom: false,
+    teams: false,
     slack: false,
     linear: false,
   };
@@ -76,7 +77,7 @@ export default async function IntegrationsPage() {
               Required to get started with MeetingActions
             </p>
             
-            <div className="grid md:grid-cols-2 gap-6">
+            <div className="grid md:grid-cols-3 gap-6">
               {/* Zoom */}
               <Card>
                 <CardHeader>
@@ -112,6 +113,48 @@ export default async function IntegrationsPage() {
                     >
                       <Button className="w-full">
                         Connect Zoom
+                        <ExternalLink className="ml-2 h-4 w-4" />
+                      </Button>
+                    </Link>
+                  )}
+                </CardContent>
+              </Card>
+
+              {/* Microsoft Teams */}
+              <Card>
+                <CardHeader>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="h-12 w-12 bg-purple-100 rounded-lg flex items-center justify-center">
+                        <Video className="h-6 w-6 text-purple-600" />
+                      </div>
+                      <div>
+                        <CardTitle>Microsoft Teams</CardTitle>
+                        <CardDescription>Meeting transcripts</CardDescription>
+                      </div>
+                    </div>
+                    {integrations.teams && (
+                      <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
+                        Connected
+                      </Badge>
+                    )}
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-gray-600 mb-4">
+                    Automatically capture transcripts from your Teams meetings and extract action items.
+                  </p>
+                  {integrations.teams ? (
+                    <Button variant="outline" className="w-full">
+                      Manage Connection
+                    </Button>
+                  ) : (
+                    <Link 
+                      href={`/api/integrations/teams?workspace_id=${tempWorkspaceId}`}
+                      className="block"
+                    >
+                      <Button className="w-full">
+                        Connect Teams
                         <ExternalLink className="ml-2 h-4 w-4" />
                       </Button>
                     </Link>
@@ -253,12 +296,12 @@ export default async function IntegrationsPage() {
         </div>
 
         {/* Setup Instructions */}
-        {!integrations.zoom && (
+        {!integrations.zoom && !integrations.teams && (
           <Card className="mt-8 border-2 border-blue-200 bg-blue-50">
             <CardContent className="pt-6">
               <h3 className="font-semibold mb-2">🚀 Get Started in 3 Steps</h3>
               <ol className="space-y-2 text-sm text-gray-700">
-                <li>1. <strong>Connect Zoom</strong> - We'll receive transcripts after meetings</li>
+                <li>1. <strong>Connect Zoom or Teams</strong> - We'll receive transcripts after meetings</li>
                 <li>2. <strong>Connect Slack</strong> - Summaries will post to your channels</li>
                 <li>3. <strong>Connect Linear</strong> - Tasks will auto-create (optional)</li>
               </ol>

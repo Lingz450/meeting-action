@@ -2,7 +2,7 @@
 
 export type PlanType = 'free' | 'pro' | 'team';
 export type UserRole = 'owner' | 'admin' | 'member';
-export type IntegrationType = 'zoom' | 'slack' | 'linear' | 'asana' | 'jira';
+export type IntegrationType = 'zoom' | 'teams' | 'slack' | 'linear' | 'asana' | 'jira';
 export type MeetingStatus = 'processing' | 'completed' | 'failed';
 export type ActionType = 'task' | 'decision' | 'question' | 'followup';
 export type ActionStatus = 'open' | 'in_progress' | 'completed' | 'cancelled';
