@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { Settings, Zap, CreditCard, TrendingUp } from 'lucide-react';
 import Link from 'next/link';
 import { PRICING_TIERS } from '@/lib/config';
+import { UpgradeButton } from '@/components/upgrade-button';
 
 export default async function BillingPage() {
   const user = await currentUser();
@@ -84,12 +85,12 @@ export default async function BillingPage() {
                 </div>
                 
                 <div className="flex gap-4">
-                  <Button className="flex-1">
+                  <UpgradeButton plan="pro" className="flex-1">
                     Upgrade to Pro
-                  </Button>
-                  <Button variant="outline" className="flex-1">
+                  </UpgradeButton>
+                  <UpgradeButton plan="team" variant="outline" className="flex-1">
                     Upgrade to Team
-                  </Button>
+                  </UpgradeButton>
                 </div>
               </div>
             )}
@@ -154,12 +155,22 @@ export default async function BillingPage() {
                     ))}
                   </ul>
                   
-                  {tier.name.toLowerCase() !== currentPlan && (
-                    <Button 
+                  {tier.name.toLowerCase() !== currentPlan && tier.price > 0 && (
+                    <UpgradeButton 
+                      plan={tier.name.toLowerCase() as 'pro' | 'team'}
                       className="w-full" 
                       variant={tier.popular ? 'default' : 'outline'}
                     >
-                      {tier.price === 0 ? 'Downgrade' : 'Upgrade'}
+                      Upgrade
+                    </UpgradeButton>
+                  )}
+                  {tier.name.toLowerCase() !== currentPlan && tier.price === 0 && (
+                    <Button 
+                      className="w-full" 
+                      variant="outline"
+                      disabled
+                    >
+                      Current Plan
                     </Button>
                   )}
                 </CardContent>
@@ -198,4 +209,5 @@ export default async function BillingPage() {
     </div>
   );
 }
+
 
