@@ -3,8 +3,9 @@ import { redirect } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Video, MessageSquare, CheckSquare, Settings, Zap, ExternalLink } from 'lucide-react';
+import { Settings, Zap, ExternalLink } from 'lucide-react';
 import Link from 'next/link';
+import { BrandLogo } from '@/components/brand-logo';
 
 export default async function IntegrationsPage() {
   const user = await currentUser();
@@ -83,9 +84,7 @@ export default async function IntegrationsPage() {
                 <CardHeader>
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <div className="h-12 w-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                        <Video className="h-6 w-6 text-blue-600" />
-                      </div>
+                      <BrandLogo brand="zoom" />
                       <div>
                         <CardTitle>Zoom</CardTitle>
                         <CardDescription>Meeting transcripts</CardDescription>
@@ -125,9 +124,7 @@ export default async function IntegrationsPage() {
                 <CardHeader>
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <div className="h-12 w-12 bg-purple-100 rounded-lg flex items-center justify-center">
-                        <Video className="h-6 w-6 text-purple-600" />
-                      </div>
+                      <BrandLogo brand="teams" />
                       <div>
                         <CardTitle>Microsoft Teams</CardTitle>
                         <CardDescription>Meeting transcripts</CardDescription>
@@ -167,9 +164,7 @@ export default async function IntegrationsPage() {
                 <CardHeader>
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <div className="h-12 w-12 bg-purple-100 rounded-lg flex items-center justify-center">
-                        <MessageSquare className="h-6 w-6 text-purple-600" />
-                      </div>
+                      <BrandLogo brand="slack" />
                       <div>
                         <CardTitle>Slack</CardTitle>
                         <CardDescription>Post summaries</CardDescription>
@@ -218,9 +213,7 @@ export default async function IntegrationsPage() {
               <Card>
                 <CardHeader>
                   <div className="flex items-center gap-3 mb-2">
-                    <div className="h-10 w-10 bg-gray-900 rounded-lg flex items-center justify-center">
-                      <CheckSquare className="h-5 w-5 text-white" />
-                    </div>
+                    <BrandLogo brand="linear" size={24} />
                     <CardTitle className="text-base">Linear</CardTitle>
                   </div>
                   {integrations.linear && (
@@ -254,9 +247,7 @@ export default async function IntegrationsPage() {
               <Card>
                 <CardHeader>
                   <div className="flex items-center gap-3 mb-2">
-                    <div className="h-10 w-10 bg-orange-100 rounded-lg flex items-center justify-center">
-                      <CheckSquare className="h-5 w-5 text-orange-600" />
-                    </div>
+                    <BrandLogo brand="asana" size={24} />
                     <CardTitle className="text-base">Asana</CardTitle>
                   </div>
                   <Badge variant="secondary" className="w-fit">Coming Soon</Badge>
@@ -275,9 +266,7 @@ export default async function IntegrationsPage() {
               <Card>
                 <CardHeader>
                   <div className="flex items-center gap-3 mb-2">
-                    <div className="h-10 w-10 bg-blue-100 rounded-lg flex items-center justify-center">
-                      <CheckSquare className="h-5 w-5 text-blue-600" />
-                    </div>
+                    <BrandLogo brand="jira" size={24} />
                     <CardTitle className="text-base">Jira</CardTitle>
                   </div>
                   <Badge variant="secondary" className="w-fit">Coming Soon</Badge>
