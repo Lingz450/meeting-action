@@ -36,11 +36,13 @@ export async function POST(req: NextRequest) {
     
     // Check if it's a configuration error
     if (error instanceof Error) {
-      if (error.message.includes('PAYSTACK_SECRET_KEY')) {
+      if (error.message.includes('PAYSTACK_SECRET_KEY') || error.message.includes('placeholder')) {
         return NextResponse.json(
           { 
             error: '🌍 Paystack is not configured yet',
-            details: 'Add your Paystack API keys to .env.local to enable African payments. See PAYSTACK_SETUP.md for instructions.'
+            details: error.message.includes('placeholder') 
+              ? error.message 
+              : 'Add your Paystack API keys to .env.local to enable African payments. See PAYSTACK_SETUP.md for instructions.'
           },
           { status: 503 }
         );

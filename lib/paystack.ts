@@ -9,6 +9,12 @@ function getPaystack(): Paystack {
     if (!key) {
       throw new Error('PAYSTACK_SECRET_KEY is not set');
     }
+    
+    // Check for placeholder/dummy keys
+    if (key.includes('your_key_here') || key.includes('your_paystack_key') || key.includes('***') || key.length < 20) {
+      throw new Error('PAYSTACK_SECRET_KEY is set to a placeholder value. Please add your real Paystack API key from https://dashboard.paystack.com');
+    }
+    
     _paystack = Paystack(key);
   }
   return _paystack;

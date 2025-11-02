@@ -9,6 +9,12 @@ function getStripe(): Stripe {
     if (!key) {
       throw new Error('STRIPE_SECRET_KEY is not set');
     }
+    
+    // Check for placeholder/dummy keys
+    if (key.includes('your_key_here') || key.includes('***') || key.length < 20) {
+      throw new Error('STRIPE_SECRET_KEY is set to a placeholder value. Please add your real Stripe API key from https://dashboard.stripe.com/test/apikeys');
+    }
+    
     _stripe = new Stripe(key, {
       apiVersion: '2025-10-29.clover',
       typescript: true,

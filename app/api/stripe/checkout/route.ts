@@ -44,11 +44,13 @@ export async function POST(req: NextRequest) {
     
     // Check if it's a configuration error
     if (error instanceof Error) {
-      if (error.message.includes('STRIPE_SECRET_KEY') || error.message.includes('apiKey')) {
+      if (error.message.includes('STRIPE_SECRET_KEY') || error.message.includes('apiKey') || error.message.includes('placeholder')) {
         return NextResponse.json(
           { 
             error: '💳 Stripe is not configured yet',
-            details: 'Add your Stripe API keys to .env.local to enable payments. See README.md for setup instructions.'
+            details: error.message.includes('placeholder') 
+              ? error.message 
+              : 'Add your Stripe API keys to .env.local to enable payments. See README.md for setup instructions.'
           },
           { status: 503 }
         );
