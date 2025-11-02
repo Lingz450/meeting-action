@@ -43,10 +43,24 @@ export async function POST(req: NextRequest) {
     console.error('Error creating checkout session:', error);
     
     // Check if it's a configuration error
-    if (error instanceof Error && error.message.includes('STRIPE_SECRET_KEY')) {
+    if (error instanceof Error) {
+      if (error.message.includes('STRIPE_SECRET_KEY') || error.message.includes('apiKey')) {
+        return NextResponse.json(
+          { 
+            error: '💳 Stripe is not configured yet',
+            details: 'Add your Stripe API keys to .env.local to enable payments. See README.md for setup instructions.'
+          },
+          { status: 503 }
+        );
+      }
+      
+      // Return the actual error message for better debugging
       return NextResponse.json(
-        { error: 'Stripe is not configured. Please add your Stripe keys to .env.local' },
-        { status: 503 }
+        { 
+          error: 'Payment setup error',
+          details: error.message 
+        },
+        { status: 500 }
       );
     }
     

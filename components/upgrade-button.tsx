@@ -50,7 +50,9 @@ export function UpgradeButton({ plan, variant = 'default', className, children }
 
       if (!response.ok) {
         // Show specific error message if available
-        throw new Error(data.error || 'Failed to create checkout session');
+        const errorMessage = data.error || 'Failed to create checkout session';
+        const details = data.details ? `\n\n${data.details}` : '';
+        throw new Error(errorMessage + details);
       }
 
       // Redirect to payment page
@@ -61,7 +63,11 @@ export function UpgradeButton({ plan, variant = 'default', className, children }
       }
     } catch (error) {
       console.error('Error creating checkout session:', error);
-      const errorMessage = error instanceof Error ? error.message : 'Failed to start checkout. Please try again.';
+      const errorMessage = error instanceof Error 
+        ? error.message 
+        : 'Failed to start checkout. Please try again.';
+      
+      // Show a nicer alert with line breaks
       alert(errorMessage);
       setIsLoading(false);
     }
