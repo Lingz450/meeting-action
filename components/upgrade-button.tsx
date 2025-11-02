@@ -68,12 +68,12 @@ export function UpgradeButton({ plan, variant = 'default', className, children }
   };
 
   return (
-    <div className="flex gap-2">
+    <div className={`flex gap-2 ${className || ''}`}>
       <Button
         onClick={() => handleUpgrade()}
         disabled={isLoading}
         variant={variant}
-        className={className}
+        className="flex-1"
       >
         {isLoading ? (
           <>
@@ -90,7 +90,7 @@ export function UpgradeButton({ plan, variant = 'default', className, children }
           <Button
             variant={variant}
             size="icon"
-            className="w-10"
+            className="w-10 flex-shrink-0"
             disabled={isLoading}
           >
             <ChevronDown className="h-4 w-4" />
