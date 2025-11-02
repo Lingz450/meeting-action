@@ -10,7 +10,7 @@ Every meeting → Clear actions → Posted to Slack → In your task tool.
 - **Multi-Platform Integration**: Zoom, Slack, Linear, Asana, Jira
 - **Real-Time Processing**: Summaries and tasks created within 2 minutes of meeting end
 - **Beautiful Dashboard**: Track meetings, actions, and team performance
-- **Flexible Billing**: Free tier + Pro ($19/mo) + Team ($99/mo)
+- **Flexible Billing**: Free tier + Pro ($19/mo) + Team ($99/mo) with Stripe & Paystack (Africa)
 
 ## 🛠️ Tech Stack
 
@@ -19,7 +19,7 @@ Every meeting → Clear actions → Posted to Slack → In your task tool.
 - **Database**: PostgreSQL (Supabase)
 - **Auth**: Clerk (Google, Microsoft, Slack OAuth)
 - **AI**: OpenAI GPT-4 Turbo
-- **Payments**: Stripe
+- **Payments**: Stripe + Paystack (Africa)
 - **Hosting**: Vercel
 
 ## 📦 Setup
@@ -87,6 +87,10 @@ STRIPE_SECRET_KEY=sk_test_...
 STRIPE_WEBHOOK_SECRET=whsec_...
 STRIPE_PRICE_ID_PRO=price_...
 STRIPE_PRICE_ID_TEAM=price_...
+
+# Paystack (Optional - For African Markets)
+PAYSTACK_SECRET_KEY=sk_test_...
+PAYSTACK_PUBLIC_KEY=pk_test_...
 ```
 
 ### 3. Database Setup
@@ -147,7 +151,27 @@ Run the SQL schema in Supabase:
    - `customer.subscription.updated`
    - `customer.subscription.deleted`
 
-### 9. Run Development Server
+### 9. Paystack Setup (Optional - For African Markets)
+
+**Why Paystack?** Better conversion rates in Nigeria, Ghana, South Africa, and Kenya.
+
+1. Create account at [Paystack](https://paystack.com)
+2. Get your API keys from Settings > API Keys & Webhooks
+3. Add to `.env.local`:
+   ```bash
+   PAYSTACK_SECRET_KEY=sk_test_your_key_here
+   PAYSTACK_PUBLIC_KEY=pk_test_your_key_here
+   ```
+4. Set webhook URL: `https://your-domain.com/api/webhooks/paystack`
+5. **Supported currencies**:
+   - 🇳🇬 Nigeria (NGN): ₦45,000 (Pro) / ₦235,000 (Team)
+   - 🇬🇭 Ghana (GHS): GH₵120 (Pro) / GH₵625 (Team)
+   - 🇿🇦 South Africa (ZAR): R350 (Pro) / R1,825 (Team)
+   - 💵 USD: $19 (Pro) / $99 (Team)
+
+**Payment Methods**: Cards, Bank Transfer, USSD, Mobile Money
+
+### 10. Run Development Server
 
 ```bash
 npm run dev
@@ -186,6 +210,9 @@ Receives meeting recordings and transcripts. Triggered by Zoom after meeting end
 
 #### Stripe: `/api/webhooks/stripe`
 Handles subscription events (created, updated, canceled).
+
+#### Paystack: `/api/webhooks/paystack`
+Handles payment events (charge.success, subscription.create, subscription.disable).
 
 ### Integrations
 
