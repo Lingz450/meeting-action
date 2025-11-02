@@ -93,20 +93,6 @@ export default async function MeetingsPage() {
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="mb-8 flex items-center justify-between">
-          <div>
-            <h1 className="text-3xl font-bold mb-2">Meetings</h1>
-            <p className="text-gray-600">
-              View all your processed meetings and their action items.
-            </p>
-          </div>
-          <Button>
-            <Download className="mr-2 h-4 w-4" />
-            Export All
-          </Button>
-        </div>
-
-        {/* Meetings List */}
         {meetings.length > 0 ? (
           <MeetingsList meetings={meetings} />
         ) : (
