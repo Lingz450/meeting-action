@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { 
-  Settings, Zap, Video
+  Settings, Zap, Video, Download
 } from 'lucide-react';
 import Link from 'next/link';
 import { MeetingsList } from '@/components/meetings-list';
